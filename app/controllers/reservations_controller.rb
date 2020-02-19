@@ -25,7 +25,6 @@ class ReservationsController < ApplicationController
   # POST /reservations.json
   def create
     @reservation = Reservation.new(reservation_params)
-
     respond_to do |format|
       if @reservation.save
         format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
@@ -69,6 +68,6 @@ class ReservationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reservation_params
-      params.require(:reservation).permit(:status)
+      params.require(:reservation).permit(:status, :user_id, :book_id)
     end
 end

@@ -16,6 +16,15 @@
     <%= form.text_field :status %>
   </div>
 
+  <div class="field">
+    <%= form.select(:book_id, Book.all.collect { |b| [ b.title, b.id ] }, {}, { "data-placeholder": "Select Book" }) %>
+  </div>
+
+  <div class="field">
+    <%= form.select(:user_id, User.all.collect { |b| [ b.first_name, b.id ] }, {}, { "data-placeholder": "Select User" }) %>
+  </div>
+<!---->
+
   <div class="actions">
     <%= form.submit %>
   </div>
