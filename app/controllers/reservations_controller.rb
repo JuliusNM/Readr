@@ -25,15 +25,20 @@ class ReservationsController < ApplicationController
   # POST /reservations.json
   def create
     @reservation = Reservation.new(reservation_params)
-    respond_to do |format|
-      if @reservation.save
-        format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
-        format.json { render :show, status: :created, location: @reservation }
-      else
-        format.html { render :new }
-        format.json { render json: @reservation.errors, status: :unprocessable_entity }
+    @book = Book.find_by_id(reservation_params[:book_id])
+    if @book.status != 'Reserved'
+      respond_to do |format|
+        if @reservation.save
+          @book.update_attribute(:status, 'Reserved')
+          format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
+          format.json { render :show, status: :created, location: @reservation }
+        else
+          format.html { render :new }
+          format.json { render json: @reservation.errors, status: :unprocessable_entity }
+        end
       end
     end
+
   end
 
   # PATCH/PUT /reservations/1
