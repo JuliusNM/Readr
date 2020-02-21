@@ -26,9 +26,11 @@ class ReservationsController < ApplicationController
   def create
     @reservation = Reservation.new(reservation_params)
     @book = Book.find_by_id(reservation_params[:book_id])
-    if @book.status != 'Reserved'
       respond_to do |format|
-        if @reservation.save
+        if @book.status == 'Reserved'
+          @reservation.errors.add(:book, "This book has been reserved")
+        end
+        if @reservation.valid? && @reservation.save
           @book.update_attribute(:status, 'Reserved')
           format.html { redirect_to @reservation, notice: 'Reservation was successfully created.' }
           format.json { render :show, status: :created, location: @reservation }
@@ -37,8 +39,6 @@ class ReservationsController < ApplicationController
           format.json { render json: @reservation.errors, status: :unprocessable_entity }
         end
       end
-    end
-
   end
 
   # PATCH/PUT /reservations/1
