@@ -4,6 +4,10 @@
   <strong>Status:</strong>
   <%= @reservation.status %>
 </p>
+<p>
+  <strong>Book:</strong>
+  <%= @reservation.book_id %>
+</p>
 
 <%= link_to 'Edit', edit_reservation_path(@reservation) %> |
 <%= link_to 'Back', reservations_path %>

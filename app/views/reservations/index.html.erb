@@ -11,8 +11,10 @@
   </thead>
   <tbody>
     <% @reservations.each do |reservation| %>
+    <%= x = Book.find(reservation.book_id) %>
       <tr>
         <td><%= reservation.status %></td>
+        <td><%= x.title%></td>
         <td><%= link_to 'Show', reservation %></td>
         <td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
         <td><%= link_to 'Destroy', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
