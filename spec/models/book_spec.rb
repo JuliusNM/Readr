@@ -1,7 +1,8 @@
+require 'rspec/core'
 require 'rails_helper'
-require_relative 'spec_helper'
-require 'rspec/rails'
 
 RSpec.describe Book, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+	it 'is not valid without a title' do
+		expect(Book.new(title: 'Beyond Limits')).to_be_valid
+	end
 end
