@@ -1,3 +1,3 @@
 # READR
 
-An appllication for exchanging .
+An appllication for exchanging hard copy books.
